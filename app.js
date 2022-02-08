@@ -1,12 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const jwt = require('jsonwebtoken');
 const port = 3004;
 app.use(bodyParser.json());
 
 app.set('view engine', "ejs");
 app.use(express.static("public"));
 
+const route = require('./route');
 
 
 const callfn = (req) => {
@@ -41,6 +43,8 @@ app.post('/test_remote', async(req, res) => {
 app.get('/login', (req, res) => {
     res.render('loginform');
 })
+
+app.post('/user_login', route.userLogin);
 
 app.listen(port, () => {
     console.log('Server is open on port ', port);
