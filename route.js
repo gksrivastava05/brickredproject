@@ -17,7 +17,7 @@ const checkUserLogin = (reqBody, callback) => {
         console.log("User ", user);
         if (user < 1) {
             message_part = {
-                message: "Authentication Faild"
+                message: "Incorrect Username and Password"
             }
             callback(message_part);
         } else {
@@ -26,7 +26,7 @@ const checkUserLogin = (reqBody, callback) => {
                 if (!result) {
                     console.log("if condition", err);
                     message_part = {
-                        message: "Authentication Failed"
+                        message: "Incorrect Username and Password"
                     }
                     callback(message_part);
                 } else {
@@ -63,3 +63,10 @@ const userLogin = (req, res) => {
 }
 
 module.exports.userLogin = userLogin;
+
+const userAuthentication = (req, res, next) => {
+    console.log("Inside userAuthentication function", req.body);
+    res.send(req.body);
+}
+
+module.exports.userAuthentication = userAuthentication;
