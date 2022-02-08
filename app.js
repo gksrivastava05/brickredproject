@@ -9,7 +9,7 @@ app.set('view engine', "ejs");
 app.use(express.static("public"));
 
 const route = require('./route');
-
+const authenticate = require('./middleware/auth.js')
 
 const callfn = (req) => {
     let str = '';
@@ -45,6 +45,7 @@ app.get('/login', (req, res) => {
 })
 
 app.post('/user_login', route.userLogin);
+app.post('/user_authentication', authenticate.authuser, route.userAuthentication);
 
 app.listen(port, () => {
     console.log('Server is open on port ', port);
