@@ -1,8 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const jwt = require('jsonwebtoken');
 const port = 3004;
 app.use(bodyParser.json());
+
+app.set('view engine', "ejs");
+app.use(express.static("public"));
+
+const route = require('./route');
 
 
 const callfn = (req) => {
@@ -14,6 +20,7 @@ const callfn = (req) => {
         }, 1000, req);
     });
 }
+
 
 // <<<<<<< HEAD
 
@@ -32,6 +39,12 @@ app.post('/test_remote', async(req, res) => {
         res.status(401).send(err);
     }
 })
+
+app.get('/login', (req, res) => {
+    res.render('loginform');
+})
+
+app.post('/user_login', route.userLogin);
 
 app.listen(port, () => {
     console.log('Server is open on port ', port);
