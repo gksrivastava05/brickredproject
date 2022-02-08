@@ -23,15 +23,13 @@ const checkUserLogin = (reqBody, callback) => {
         } else {
             console.log("else part")
             bcryptjs.compare(reqBody.password, user[0].password, function(err, result) {
-                if (err) {
+                if (!result) {
                     console.log("if condition", err);
                     message_part = {
                         message: "Authentication Failed"
                     }
                     callback(message_part);
-                }
-
-                if (result) {
+                } else {
                     var token = jwt.sign({
                             username: user[0].username,
                             user_id: user[0].login_id
@@ -41,8 +39,6 @@ const checkUserLogin = (reqBody, callback) => {
                         }
                     );
 
-
-                    user[0].status = 200;
                     user[0].message = "Sucessfull";
                     user[0].token = token;
 
