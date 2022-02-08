@@ -4,6 +4,10 @@ const app = express();
 const port = 3004;
 app.use(bodyParser.json());
 
+app.set('view engine', "ejs");
+app.use(express.static("public"));
+
+
 
 const callfn = (req) => {
     let str = '';
@@ -14,6 +18,7 @@ const callfn = (req) => {
         }, 1000, req);
     });
 }
+
 
 // <<<<<<< HEAD
 
@@ -31,6 +36,10 @@ app.post('/test_remote', async(req, res) => {
     } catch (err) {
         res.status(401).send(err);
     }
+})
+
+app.get('/login', (req, res) => {
+    res.render('loginform');
 })
 
 app.listen(port, () => {
