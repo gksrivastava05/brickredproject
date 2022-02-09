@@ -10,12 +10,13 @@ app.use(express.static("public"));
 
 const route = require('./route');
 const auth = require('./middleware/auth.js')
+const validation = require('./middleware/validation_middleware.js');
 
 const callfn = (req) => {
     let str = '';
     return new Promise((resolve, rejects) => {
-        setTimeout((req) => {
-            str = 'Hello ' + req.body.name + ' I am using GitHub';
+        setTimeout((reqBody) => {
+            str = 'Hello ' + reqBody.body.name + ' I am using GitHub';
             resolve(str);
         }, 1000, req);
     });
@@ -44,8 +45,13 @@ app.get('/login', (req, res) => {
     res.render('loginform');
 })
 
-app.post('/user_login', route.userLogin);
-app.post('/user_authentication', auth.authuser, route.userAuthentication);
+//user login...
+app.post('/user_login', validation.signIn, route.userLogin);
+//get user...
+app.get('/get_user', auth.authuser, route.userAuthentication);
+
+
+
 
 app.listen(port, () => {
     console.log('Server is open on port ', port);

@@ -5,12 +5,15 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 app.use(bodyParser.json());
 
+
 const conndb = require('./conndb.js');
 const DB = conndb.DB;
 const bcryptjs = require('bcryptjs');
 
 const checkUserLogin = (reqBody, callback) => {
     console.log('Inside checkUserLogin');
+    var { username, password } = reqBody;
+    console.log("username password", username, password);
     var message_part = {};
 
     DB.query("select * from login_user where username = $1", reqBody.username).then((user) => {
@@ -65,8 +68,8 @@ const userLogin = (req, res) => {
 module.exports.userLogin = userLogin;
 
 const userAuthentication = (req, res, next) => {
-    console.log("Inside userAuthentication function", req.body);
-    res.send(req.body);
+    console.log("Inside userAuthentication function");
+    res.send("Valid Token");
 }
 
 module.exports.userAuthentication = userAuthentication;
