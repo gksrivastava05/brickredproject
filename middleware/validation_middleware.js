@@ -33,8 +33,10 @@ const signUp = (req, res, next) => {
             type: Date,
             required: true
         },
-        "username": "required|string",
-        "password": "required|string|min:5|confirmed"
+        // "username": "required|string|min:3",
+        "username": ['required', 'string', 'regex:^[A-Za-z][A-Za-z0-9_]{5,29}$'],
+        // "password": "required|string|min:5|confirmed"
+        "password": ["required", 'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/', 'confirmed']
     }
 
     validator(req.body, validationRules, {}, (err, status) => {
@@ -54,7 +56,13 @@ const signUp = (req, res, next) => {
 module.exports.signUp = signUp;
 
 
-/*** update validation */
+/**************
+ * ***************** Update validation 
+ ******/
+
+
+//, 'regex:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
+// 'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/'
 
 const update_validation = (req, res, next) => {
     console.log("Inside update middleware");
@@ -66,8 +74,10 @@ const update_validation = (req, res, next) => {
             type: Date,
             required: true
         },
-        "username": "required|string",
-        "password": "required|string|min:5"
+        // "username": "required|string|min:3",
+        "username": ['required', 'string', 'regex:^[A-Za-z][A-Za-z0-9_]{5,29}$'],
+        // "password": ['required', 'string', 'min:5']
+        "password": ['required', 'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/']
     }
 
     validator(req.body, validationRules, {}, (err, status) => {
