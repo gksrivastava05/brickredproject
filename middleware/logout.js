@@ -6,7 +6,7 @@ const logout_mid = function(req, res, next) {
         console.log(req.headers);
         let token = req.headers.authorization.split(" ")[1];
         console.log("Inside logout_mid ", token);
-        const verifyuser = jwt.verify(token, process.env.SECRET_KEY);
+        const verifyuser = jwt.verify(token, process.env.SECRET_KEY, { expiresIn: "1ms" });
         console.log("in logout_mid function->  ", verifyuser);
 
         next();
