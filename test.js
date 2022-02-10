@@ -68,3 +68,12 @@ const userRegistration = async(req, res) => {
 }
 
 module.exports.userRegistration = userRegistration
+
+// const [all, year, month, day] =
+//     /^(\d\d\d\d)-(\d\d)-(\d\d)$/
+//     .exec('2999-12-31');
+
+//spread Operater...
+// let a = [1, ...[2, 3], 4]
+// console.log(a);
+// console.log("Hii")

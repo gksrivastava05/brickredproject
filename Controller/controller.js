@@ -69,7 +69,9 @@ const userRegistration = async(req, res) => {
 
 module.exports.userRegistration = userRegistration
 
-const updateUser = async(req, res) => {
+
+/*** Update User Data */
+const updateUserData = async(req, res) => {
     try {
         console.log("Inside updateUser", req.body, req.params);
         const result = await UserUpdate.updateData(req, req.params.id);
@@ -80,4 +82,4 @@ const updateUser = async(req, res) => {
     }
 }
 
-module.exports.updateUser = updateUser;
+module.exports.updateUserData = updateUserData;
