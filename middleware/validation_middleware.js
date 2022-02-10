@@ -53,18 +53,21 @@ const signUp = (req, res, next) => {
 
 module.exports.signUp = signUp;
 
-const update_middleware = (req, res, next) => {
+
+/*** update validation */
+
+const update_validation = (req, res, next) => {
     console.log("Inside update middleware");
 
     const validationRules = {
-        "name": "string",
-        "email": "email",
+        "name": "required|string|min:3",
+        "email": "required|email",
         "birthDate": {
             type: Date,
             required: true
         },
-        "username": "string",
-        "password": "string|min:5"
+        "username": "required|string",
+        "password": "required|string|min:5"
     }
 
     validator(req.body, validationRules, {}, (err, status) => {
@@ -81,4 +84,4 @@ const update_middleware = (req, res, next) => {
     });
 }
 
-module.exports.update_middleware = update_middleware;
+module.exports.update_validation = update_validation;

@@ -71,7 +71,7 @@ module.exports.userRegistration = userRegistration
 
 const updateUser = async(req, res) => {
     try {
-        console.log("Inside updateUserInfo", req.body, req.params);
+        console.log("Inside updateUser", req.body, req.params);
         const result = await UserUpdate.updateData(req, req.params.id);
         console.log("Final result", result);
         res.send(result);

@@ -51,7 +51,7 @@ app.get('/get_user', auth.authuser, controller.getAllUsers);
 app.post('/userregister', validation.signUp, controller.userRegistration);
 
 //update user data..
-app.put('/update_user_data/:id', validation.update_middleware, controller.updateUser);
+app.put('/update_user_data/:id', validation.update_validation, controller.updateUser);
 
 //logout..
 // app.get('/user_logout', logout_auth.logout_mid)
