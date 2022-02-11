@@ -51,10 +51,10 @@ app.get('/get_user', auth.authuser, controller.getAllUsers);
 app.post('/userregister', validation.signUp, controller.userRegistration);
 
 //update user data..
-app.put('/update_user_data/:id', validation.update_validation, controller.updateUserData);
+app.put('/update_user_data', validation.update_validation, controller.updateUserData);
 
 //logout..
-// app.get('/user_logout', logout_auth.logout_mid)
+app.get('/user_logout', logout_auth.logout_mid, controller.logoutuser);
 
 app.listen(port, () => {
     console.log('Server is open on port ', port);
