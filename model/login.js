@@ -37,7 +37,7 @@ const checkUserCredential = (reqBody) => {
 
 module.exports.checkUserCredential = checkUserCredential
 
-const getAllUser = () => {
+const getAllUser_old = async() => {
     return new Promise((resolve, reject) => {
 
         console.log("Inside getAllUser");
@@ -52,7 +52,25 @@ const getAllUser = () => {
 
             }
         })
+
     })
+
+
+}
+
+const getAllUser = async() => {
+
+    console.log("Inside getAllUser");
+
+    let data = await DB.query('select registration_id, name, email, birthdate from registration');
+    console.log(data);
+    return data;
 }
 
 module.exports.getAllUser = getAllUser;
+
+
+// static async getUserData({ email }) {
+//     let data = await pool.query(`select * from ${dbtable.USER} where email = ($1)`, [email])
+//     return data.rows
+// }

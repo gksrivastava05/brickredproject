@@ -73,8 +73,8 @@ module.exports.userRegistration = userRegistration
 /*** Update User Data */
 const updateUserData = async(req, res) => {
     try {
-        console.log("Inside updateUser", req.body, req.params);
-        const result = await UserUpdate.updateData(req, req.params.id);
+        console.log("Inside updateUser", req.body);
+        const result = await UserUpdate.updateData_v2(req);
         console.log("Final result", result);
         res.send(result);
     } catch (err) {
@@ -83,3 +83,9 @@ const updateUserData = async(req, res) => {
 }
 
 module.exports.updateUserData = updateUserData;
+
+const logoutuser = (req, res) => {
+    res.send("Successfully Logout");
+}
+
+module.exports.logoutuser = logoutuser;
