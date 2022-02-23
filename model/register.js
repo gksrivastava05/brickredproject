@@ -9,9 +9,9 @@ const insertNewUser = (req) => {
         console.log("Inside insertNewUser", reqbody);
         let password = bcryptjs.hashSync(reqbody.password, 10);
 
-        DB.query("insert into registration  values (default, $1, $2, $3, $4, $5) RETURNING registration_id", [reqbody.name, reqbody.email, reqbody.birthDate, reqbody.username, password]).then((result) => {
+        DB.query("insert into user_tb  values (default, $1, $2, $3, $4, $5) RETURNING user_id", [reqbody.name, reqbody.email, reqbody.birthDate, reqbody.username, password]).then((result) => {
             console.log("result ", result);
-            reqbody.registration_id = result[0].registration_id;
+            reqbody.user_id = result[0].user_id;
             resolve(reqbody);
         }).catch((error) => {
             reject(error);

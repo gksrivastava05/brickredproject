@@ -1,12 +1,13 @@
 const conndb = require('../conndb.js');
 const DB = conndb.DB;
 const bcryptjs = require('bcryptjs');
+const Pool = require('../modelconn');
 
 
 const checkUserCredential = (reqBody) => {
     var message_part = {};
     return new Promise((resolve, reject) => {
-        DB.query("select * from registration where username = $1", reqBody.username).then((user) => {
+        DB.query("select * from user_tb where username = $1", reqBody.username).then((user) => {
             if (user < 1) {
                 message_part = {
                     message: "Incorrect Username and Password"
@@ -41,7 +42,7 @@ const getAllUser_old = async() => {
     return new Promise((resolve, reject) => {
 
         console.log("Inside getAllUser");
-        DB.query("select registration_id, name, email, birthdate from registration").then((result, error) => {
+        DB.query("select user_id, name, email, birthdate from user_tb").then((result, error) => {
             if (error) {
                 console.log("Inside if condition")
                 reject(error);
@@ -62,8 +63,14 @@ const getAllUser = async() => {
 
     console.log("Inside getAllUser");
 
-    let data = await DB.query('select registration_id, name, email, birthdate from registration');
-    console.log(data);
+    // let data = await DB.query("select ut.user_id,name, email, birthdate, username, COALESCE(role_name, 'null') as role_name, COALESCE(ur.createdby, 'null') as createdby , COALESCE(ur.status, 0 ) as status from   user_tb ut left join user_role ur on ur.user_id = ut.user_id left join role_master_tb rmt on rmt.role_master_id = ur.role_master_id");
+    // console.log(data);
+
+    let data = await DB.query("select ut.user_id,name, email, birthdate, username, array_to_json(COALESCE(array_agg(to_json(rmt.*)) filter (where rmt.* is not null) , '{}')) as role   from   user_tb ut left join user_role ur on ur.user_id = ut.user_id left join role_master_tb rmt on rmt.role_master_id = ur.role_master_id group by ut.user_id order by ut.user_id")
+
+
+    console.log("get all user-> ", data);
+
     return data;
 }
 
