@@ -2,8 +2,8 @@ const validator = require('../helpers/validate');
 
 const signIn = (req, res, next) => {
     const validationRule = {
-        "username": "required|string",
-        "password": "required|string|min:5",
+        "username": ['required', 'string', 'regex:^[A-Za-z][A-Za-z0-9_]{3,29}$'],
+        "password": ["required", 'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,16}$/']
     }
 
 
@@ -34,9 +34,9 @@ const signUp = (req, res, next) => {
             required: true
         },
         // "username": "required|string|min:3",
-        "username": ['required', 'string', 'regex:^[A-Za-z][A-Za-z0-9_]{5,29}$'],
+        "username": ['required', 'string', 'regex:^[A-Za-z][A-Za-z0-9_]{3,29}$'],
         // "password": "required|string|min:5|confirmed"
-        "password": ["required", 'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/', 'confirmed']
+        "password": ["required", 'regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,16}$/', 'confirmed']
     }
 
     validator(req.body, validationRules, {}, (err, status) => {
@@ -68,16 +68,16 @@ const update_validation = (req, res, next) => {
     console.log("Inside update middleware");
 
     const validationRules = {
-        "registration_id": "required|numeric|min:4",
+        "user_id": "required|integer",
         "name": "string|min:3",
         "email": "email",
         "birthDate": {
             type: Date,
         },
         // "username": "required|string|min:3",
-        "username": ['string', 'regex:^[A-Za-z][A-Za-z0-9_]{5,29}$'],
-        // "password": ['required', 'string', 'min:5']
-        "password": ['regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/']
+        "username": ['string', 'regex:^[A-Za-z][A-Za-z0-9_]{3,29}$']
+            // "password": ['required', 'string', 'min:5']
+            // "password": ['regex:/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/']
     }
 
     validator(req.body, validationRules, {}, (err, status) => {
