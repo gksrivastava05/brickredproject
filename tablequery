@@ -1,0 +1,133 @@
+create sequence course_id  start 1001;
+
+CREATE TABLE public.course
+(
+  course_id integer NOT NULL DEFAULT nextval('course_id'::regclass),
+  course_name character varying(80) NOT NULL,
+  course_description character varying(1000),
+  status int DEFAULT 0,
+  created_date timestamp without time zone DEFAULT now(),
+  updated_date timestamp without time zone DEFAULT now(),
+  CONSTRAINT course_id_primary_key PRIMARY KEY (course_id),
+  CONSTRAINT unique_course_name UNIQUE (course_name)
+)
+
+
+create sequence enrollment_id start 10001;
+
+CREATE TABLE public.enrollment
+(
+  enrollment_id integer NOT NULL DEFAULT nextval('enrollment_id'::regclass),
+  user_id integer NOT NULL,
+  course_id integer NOT NULL,
+  status int DEFAULT 0,
+  created_date timestamp without time zone DEFAULT now(),
+  updated_date timestamp without time zone DEFAULT now(),
+  CONSTRAINT enrollment_course_id_fkey FOREIGN KEY (course_id)
+      REFERENCES public.course (course_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT enrollment_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES public.user_tb (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT unique_key_user_course UNIQUE (user_id, course_id)
+)
+
+create sequence exam_master_id start 1001;
+
+CREATE TABLE public.exam_master
+(
+  exam_master_id integer NOT NULL DEFAULT nextval('exam_master_id'::regclass),
+  exam character varying(50),
+  CONSTRAINT exam_master_id_pkey PRIMARY KEY (exam_master_id),
+  CONSTRAINT exam_unique_key UNIQUE (exam)
+)
+
+
+create sequence mail_template_id start 101;
+
+CREATE TABLE public.mail_template
+(
+  mail_template_id integer NOT NULL DEFAULT nextval('mail_template_id'::regclass),
+  tempate character varying(1500),
+  type character varying(50)
+)
+
+
+create sequence role_id start 2001;
+
+CREATE TABLE public.role_master_tb
+(
+  role_master_id integer NOT NULL DEFAULT nextval('role_id'::regclass),
+  role_name character varying(50) NOT NULL,
+  status integer DEFAULT 0,
+  createdby character varying(50),
+  createdtime timestamp without time zone DEFAULT now(),
+  updatedtime timestamp without time zone DEFAULT now(),
+  CONSTRAINT primary_key_role PRIMARY KEY (role_master_id)
+)
+
+
+
+create sequence exam_id start 1001;
+
+CREATE TABLE public.user_eaxm
+(
+  exam_id integer NOT NULL DEFAULT nextval('exam_id'::regclass),
+  exam_master_id integer NOT NULL,
+  user_id integer NOT NULL,
+  question character varying(500),
+  answer character varying(50) NOT NULL,
+  answer_status boolean,
+  marks integer NOT NULL,
+  CONSTRAINT exam_id_pkey PRIMARY KEY (exam_id),
+  CONSTRAINT exam_master_id_fkey FOREIGN KEY (exam_master_id)
+      REFERENCES public.exam_master (exam_master_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT user_id_fkey_user_exam FOREIGN KEY (user_id)
+      REFERENCES public.user_tb (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+
+)
+
+
+create sequence user_role_id start 1001;
+
+CREATE TABLE public.user_role
+(
+  user_role_id integer NOT NULL DEFAULT nextval('user_role_id'::regclass),
+  user_id integer NOT NULL,
+  role_master_id integer NOT NULL,
+  status integer DEFAULT 0,
+  createdby character varying(50),
+  createdtime timestamp without time zone DEFAULT now(),
+  updatedtime timestamp without time zone DEFAULT now(),
+  CONSTRAINT primary_key_user_role PRIMARY KEY (user_role_id),
+  CONSTRAINT foreign_key_role_master_id FOREIGN KEY (role_master_id)
+      REFERENCES public.role_master_tb (role_master_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT foreign_key_user_id FOREIGN KEY (user_id)
+      REFERENCES public.user_tb (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+
+
+
+create sequesnce registration_id start 10001;
+
+CREATE TABLE public.user_tb
+(
+  user_id integer NOT NULL DEFAULT nextval('registration_id'::regclass),
+  name character varying(50),
+  email character varying(50),
+  birthdate character varying(50),
+  username character varying(50),
+  password character varying(60),
+  createdtm timestamp without time zone DEFAULT now(),
+  updatedtime timestamp without time zone DEFAULT now(),
+  CONSTRAINT primary_key_regis_constraint PRIMARY KEY (user_id),
+  CONSTRAINT unique_username_constraint UNIQUE (username)
+)
+
+
+
