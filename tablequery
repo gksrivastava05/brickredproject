@@ -1,6 +1,6 @@
-create sequence course_id  start 1001;
+create sequence course_id  start 1001; --done
 
-CREATE TABLE public.course
+CREATE TABLE public.course --done
 (
   course_id integer NOT NULL DEFAULT nextval('course_id'::regclass),
   course_name character varying(80) NOT NULL,
@@ -13,9 +13,9 @@ CREATE TABLE public.course
 )
 
 
-create sequence enrollment_id start 10001;
+create sequence enrollment_id start 10001; --done
 
-CREATE TABLE public.enrollment
+CREATE TABLE public.enrollment --done
 (
   enrollment_id integer NOT NULL DEFAULT nextval('enrollment_id'::regclass),
   user_id integer NOT NULL,
@@ -32,9 +32,9 @@ CREATE TABLE public.enrollment
   CONSTRAINT unique_key_user_course UNIQUE (user_id, course_id)
 )
 
-create sequence exam_master_id start 1001;
+create sequence exam_master_id start 1001; --done
 
-CREATE TABLE public.exam_master
+CREATE TABLE public.exam_master --done
 (
   exam_master_id integer NOT NULL DEFAULT nextval('exam_master_id'::regclass),
   exam character varying(50),
@@ -43,9 +43,9 @@ CREATE TABLE public.exam_master
 )
 
 
-create sequence mail_template_id start 101;
+create sequence mail_template_id start 101; --done
 
-CREATE TABLE public.mail_template
+CREATE TABLE public.mail_template--done
 (
   mail_template_id integer NOT NULL DEFAULT nextval('mail_template_id'::regclass),
   tempate character varying(1500),
@@ -53,9 +53,9 @@ CREATE TABLE public.mail_template
 )
 
 
-create sequence role_id start 2001;
+create sequence role_id start 2001; --done
 
-CREATE TABLE public.role_master_tb
+CREATE TABLE public.role_master_tb --done
 (
   role_master_id integer NOT NULL DEFAULT nextval('role_id'::regclass),
   role_name character varying(50) NOT NULL,
@@ -68,9 +68,9 @@ CREATE TABLE public.role_master_tb
 
 
 
-create sequence exam_id start 1001;
+create sequence exam_id start 1001; --done
 
-CREATE TABLE public.user_eaxm
+CREATE TABLE public.user_eaxm --done
 (
   exam_id integer NOT NULL DEFAULT nextval('exam_id'::regclass),
   exam_master_id integer NOT NULL,
@@ -90,9 +90,9 @@ CREATE TABLE public.user_eaxm
 )
 
 
-create sequence user_role_id start 1001;
+create sequence user_role_id start 1001; --done 
 
-CREATE TABLE public.user_role
+CREATE TABLE public.user_role --done
 (
   user_role_id integer NOT NULL DEFAULT nextval('user_role_id'::regclass),
   user_id integer NOT NULL,
@@ -113,9 +113,9 @@ CREATE TABLE public.user_role
 
 
 
-create sequesnce registration_id start 10001;
+create sequesnce registration_id start 10001;--done
 
-CREATE TABLE public.user_tb
+CREATE TABLE public.user_tb --done
 (
   user_id integer NOT NULL DEFAULT nextval('registration_id'::regclass),
   name character varying(50),

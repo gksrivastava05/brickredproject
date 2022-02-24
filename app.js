@@ -79,6 +79,7 @@ app.get('/send_mail', controller.usersendmail);
 app.post('/send_mail_dynamic', controller.sendMailDynamically);
 
 app.post('/send_mail_by_file', controller.sendMailByFile);
+app.delete('/delete_user_details/:user_id', idValidate.IDValidation ,controller.deleteUserData);
 
 app.listen(port, () => {
     console.log('Server is open on port ', port);

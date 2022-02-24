@@ -23,6 +23,7 @@ const enrollment = require('../model/enrollment');
 const getUserDetails = require('../model/getUser');
 const userMarks = require('../model/userExamMarks');
 const template = require('../model/template');
+const deleteDetails = require('../model/deleteData');
 
 
 const userLogin = async(req, res) => {
@@ -251,8 +252,7 @@ module.exports.getUserMarksById = getUserMarksById;
 
 
 
-
-const transporter = nodemailer.createTransport({
+const smtpConfig = {
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
@@ -260,7 +260,10 @@ const transporter = nodemailer.createTransport({
         user: process.env.EMAIL_USERNAME,
         pass: process.env.EMAIL_PASSWORD
     }
-})
+}
+
+
+const transporter = nodemailer.createTransport(smtpConfig)
 
 const usersendmail = async(req, res) => {
     try {
@@ -291,6 +294,7 @@ module.exports.usersendmail = usersendmail;
 
 
 const sendmail = async(template_str, replacement) => {
+    console.log("Inside sendmail function")
     let info;
     var tempt = handlebars.compile(template_str);
     var htmltosend = tempt(replacement)
@@ -371,3 +375,15 @@ const sendMailByFile = async(req, res) => {
 }
 
 module.exports.sendMailByFile = sendMailByFile;
+
+const deleteUserData = async(req, res) => {
+    try{
+        console.log("Inside deleteUserData function ", req.params);
+        const result = await deleteDetails.deleteUserDetails(req);
+        res.send(result);
+    }catch(error){
+        res.send(error);
+    }
+}
+
+module.exports.deleteUserData = deleteUserData;
