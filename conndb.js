@@ -2,9 +2,9 @@ var pgp = require('pg-promise')();
 var config = {
     host: 'localhost',
     port: '5432',
-    user: 'myuser',
+    user: 'postgres',
     password: 'password',
-    database: 'mydb'
+    database: 'mydatabase'
 
 }
 
